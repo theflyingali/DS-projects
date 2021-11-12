@@ -1,0 +1,10 @@
+model {
+    for (i in 1:n){ 
+      obese[i] ~ dbin(theta[ed_id[i],gen_id[i]],num_people[i])
+    }
+    for (x in 1:ed){
+      for(y in 1:gd){
+        theta[x,y] ~ dbeta( 1 , 1 ) 
+      }
+    }
+}

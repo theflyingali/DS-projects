@@ -1,0 +1,22 @@
+model {
+    for(i in 1:n){
+      obese[i] ~ dbin(theta[ed_id[i],gen_id[i]],num_people[i]) # likelihood
+    }
+    # priors
+    for(x in 1:4){
+      for(y in 1:3){
+        theta[x,y] ~ dnorm(mu[x,y],tau) 
+        mu[x,y] <- B0 + B1 * edu1[x] + B2 * edu2[x] + 
+                   B3 * edu3[x] + B4 * gender1[y] + B5 * gender2[y]
+      }
+    }
+    # priors for regression
+    B0 ~ dunif(0,1)
+    B1 ~ dnorm(0,0.01)
+    B2 ~ dnorm(0,0.01)
+    B3 ~ dnorm(0,0.01)
+    B4 ~ dnorm(0,0.01)
+    B5 ~ dnorm(0,0.01)
+    sigma ~ dunif(0,100)
+    tau <- 1/(sigma*sigma) # precision, i.e. 1/variance
+}

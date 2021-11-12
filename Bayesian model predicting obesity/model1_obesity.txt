@@ -1,0 +1,6 @@
+model {
+    for (i in 1:n){ 
+      obese[i] ~ dbin(theta,num_people[i])
+    }
+      theta ~ dbeta( 1 , 1 ) 
+}
